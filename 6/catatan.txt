@@ -1,0 +1,3 @@
+Display filter `dns || icmp` berhasil menyaring traffic sehingga hanya paket dengan protokol DNS dan ICMP yang ditampilkan.
+Paket DNS terlihat berupa DNS query dan DNS response antara node Mika (192.222.1.3) dengan DNS server 8.8.8.8 dan 1.1.1.1.
+Sementara itu, paket ICMP berupa Echo Request dan Echo Reply yang digunakan untuk pengujian konektivitas.

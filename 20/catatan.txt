@@ -1,0 +1,11 @@
+Filter:
+`tls`
+
+Selanjutnya masuk ke setting dari wireshark dan memilih prefereance dan pilih TLS lalu browse untuk keylog.txt nya dan dimasukin ke wireshark nya lalu setelah itu di refresh dan bakal muncul head dan kita pilih head itu lalu pilih yang bawah yaitu hyper text dan kita dapat informasi yang penting.
+
+Informasi:
+TLS Version         : TLSv1.2
+Host                : example.com
+IP address HTTPS    : 93.184.216.34
+User-Agent string   : curl/7.62.0
+Request methode     : HEAD

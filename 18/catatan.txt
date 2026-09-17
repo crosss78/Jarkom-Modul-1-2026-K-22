@@ -1,0 +1,9 @@
+Karena di deskirpsi disebutkan jalur komunikasinya lewat smb, langsung saja filter:
+`smb2`
+
+Catat informasi yang dibutuhkan:
+Protocol : SMB2
+Sender IP: 10.7.3.100
+Receiver IP: 10.7.1.50
+Folder   : ADMIN$\System32
+File     : wired_trojan_payload.exe

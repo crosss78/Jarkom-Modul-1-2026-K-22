@@ -1,0 +1,11 @@
+Filter untuk mengetahui IP yang melakuka request dengan method "POST" (bruteforce login):
+`http.request.method == "POST"`
+Di dapatlah IP yang melakukan bruteforce login: 172.26.7.50 (1)
+Jika dilihat, protokol yang dipakai adalah http, kemungkinan portnya adalah 80 atau 8080. Jadi, IP Victim:port nya adalah 172.26.7.100:8080 (2)
+
+karena di soal dikatakan "yang berhasil ditembus" dalam artian attacker berhasil login, lakukan filter:
+`http.response.code == 200`
+dan lihat apakah ada paket yg menunjukan berhasil login, follow HTTP stream nya untuk melihat informasi lengkapnya, didapatlah beberapa informasi
+yang dibutuhkan untuk menjawab soal soalnya:
+Password user lain_admin: wired_pr0tocol_7 (3)
+Web server dan versi yang dipakai: Apache/2.4.62 (4)

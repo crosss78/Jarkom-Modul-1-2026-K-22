@@ -1,0 +1,8 @@
+Buat file fix_dns.sh dan check_network.sh
+Isi masing masing file
+Kasih akses execute: 
+`chmod +x fix_dns.sh`
+`chmod +x check_network.sh`
+Jalankan di masing masing entitas: 
+`./fix_dns.sh`
+`./check_network.sh`

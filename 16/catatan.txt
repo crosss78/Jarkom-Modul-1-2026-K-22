@@ -1,0 +1,8 @@
+Langsung saja filter dengan:
+`ftp`
+
+Cari informasi yg dibutuhkan:
+IP FTP server download -> 198.51.100.7
+version ftp server software -> vsftpd 3.0.5
+user:pass -> knights_agent:N4v1_s3cur3_2026
+size malware in bytes -> 524288

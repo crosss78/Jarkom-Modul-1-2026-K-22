@@ -1,0 +1,9 @@
+Payload/Filter:
+`smtp`
+cari yang sekiranya mencurigakan
+
+1.alamat email korban yang diminta: victim@protocol7.co.jp
+2.password korban yang bocor:pr0tocol7_user
+3.jenis malware yang diinfeksikan: ransomware
+4.batas waktu (dalam hari) yang diberikan: 3 hari
+5.MailClientID yang tercantum pada pesan.: 7719980706

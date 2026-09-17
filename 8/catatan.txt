@@ -1,0 +1,6 @@
+Lakukan koneksi FTP client dari node Knights ke FTP Server Chisa menggunakan akun alice. Di node knights:
+`ftp 192.222.2.2`
+login sebagai alice
+setelah masuk di ftp nya, upload filenya:
+`put knights_report.txt`
+Analisis di wireshark

@@ -1,0 +1,6 @@
+Jalankan setup_server.sh di chisa terlebih dahulu untuk pembuatan server dan juga akun (user user dengan masing masing hak akses)
+User    Permission
+Alice   rw--
+Mika    r---
+Eiri    ----
+Jalankan setup_ftp.sh agar tiap user dapat melakukan ftp.

@@ -1,0 +1,34 @@
+IP nya knights : 192.222.3.2
+
+Jalankan script setup_portscan_target.sh di Knights untuk menyiapkan port yang akan di test
+
+Dari sisi alice jalankan netcat ke masing masing port
+nc -zv 192.222.3.2 22
+nc -zv 192.222.3.2 80
+nc -zv 192.222.3.2 7777
+
+Mulai Capture
+
+Filter di wireshark:
+filter: ip.addr == 192.222.3.2 && (tcp.port == 22 || tcp.port == 80 || tcp.port == 7777)
+
+Analisis TCP Flag pada Port Terbuka dan Port Tertutup
+Berdasarkan hasil capture menggunakan Wireshark, terdapat perbedaan respons TCP ketika melakukan pengecekan port terbuka dan port tertutup.
+Pada port yang terbuka, ketika client mengirimkan paket TCP SYN untuk meminta koneksi, server membalas dengan paket SYN-ACK. Flag SYN menunjukkan bahwa server menerima permintaan pembentukan koneksi, sedangkan flag ACK menunjukkan bahwa server mengakui (acknowledge) paket SYN yang diterima. Respons SYN-ACK menandakan bahwa pada port tersebut terdapat layanan yang aktif dan siap menerima koneksi.
+Alur komunikasi port terbuka:
+Client → Server : SYN
+Server → Client : SYN, ACK
+Client → Server : ACK
+Contohnya pada port 22 (SSH) dan port 80 (HTTP), Wireshark menunjukkan respons SYN-ACK sehingga dapat disimpulkan bahwa port tersebut dalam kondisi terbuka.
+Sedangkan pada port yang tertutup, ketika client mengirimkan paket TCP SYN, server tidak menemukan layanan yang berjalan pada port tersebut sehingga mengirimkan balasan berupa RST-ACK.
+Flag RST (Reset) digunakan untuk memberhentikan atau menolak koneksi karena tidak ada service yang menerima permintaan tersebut. Flag ACK menunjukkan bahwa server tetap mengakui paket SYN yang diterima, tetapi koneksi tidak dapat dilanjutkan.
+Alur komunikasi port tertutup:
+Client → Server : SYN
+Server → Client : RST, ACK
+Pada pengujian port 7777, Wireshark menunjukkan respons RST-ACK yang menandakan bahwa port tersebut tertutup atau tidak memiliki layanan aktif.
+Kesimpulan
+Perbedaan utama respons TCP adalah:
+Kondisi Port	Paket Balasan	Arti
+Port terbuka	SYN-ACK	Ada layanan aktif dan koneksi dapat dilanjutkan
+Port tertutup	RST-ACK	Tidak ada layanan pada port tersebut sehingga koneksi ditolak
+Dengan demikian, analisis Wireshark membuktikan bahwa TCP menggunakan mekanisme handshake untuk port terbuka, sedangkan port tertutup memberikan reset sebagai tanda penolakan koneksi.

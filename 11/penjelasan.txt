@@ -1,0 +1,8 @@
+**CHISA**
+run script setup_akun_telnet.sh
+**EIRI**
+telnet 192.222.2.2
+
+Pada protokol Telnet, setiap karakter yang diketik oleh pengguna dapat dikirim sebagai data terpisah dalam paket TCP karena Telnet dirancang sebagai protokol komunikasi interaktif (remote terminal). Setiap input keyboard dikirim segera ke server agar respons dapat diberikan secara real-time. Oleh karena itu, ketika pengguna mengetik karakter satu per satu, karakter tersebut dapat dikemas ke dalam TCP segment yang berbeda, tergantung waktu pengiriman, buffer sistem, dan mekanisme TCP seperti Nagle Algorithm.
+TCP sendiri tidak menjamin bahwa satu karakter selalu berada dalam satu paket, tetapi menyediakan mekanisme pengiriman data yang andal berdasarkan urutan (sequence number). Jika beberapa karakter dikirim bersamaan, TCP dapat menggabungkannya dalam satu segment; jika diketik dengan jeda, setiap karakter dapat muncul sebagai segment terpisah.
+Pada analisis Wireshark, paket-paket TCP tersebut kemudian direkonstruksi menggunakan fitur Follow TCP Stream, sehingga seluruh percakapan Telnet terlihat sebagai satu aliran data lengkap. Hal ini menunjukkan bahwa meskipun data dikirim melalui beberapa TCP segment, isi komunikasi tetap dapat dibaca karena Telnet tidak melakukan enkripsi.

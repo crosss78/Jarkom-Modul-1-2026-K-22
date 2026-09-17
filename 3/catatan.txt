@@ -1,0 +1,79 @@
+SOAL 3 - Konfigurasi Routing Antar Client
+
+Tujuan:
+Memastikan seluruh Entitas (Client) pada Switch 1, Switch 2,
+dan Switch 3 dapat saling terhubung dan berkomunikasi melalui
+konfigurasi routing pada Router Lain.
+
+
+Topologi:
+Router Lain berfungsi sebagai router yang menghubungkan
+3 jaringan berbeda:
+
+LAN 1:
+- Alice
+- Mika
+
+LAN 2:
+- Chisa
+
+LAN 3:
+- Knights
+- Eiri
+
+
+Konfigurasi Router:
+Interface Router Lain:
+
+eth1:
+IP Address : 192.222.1.1
+Subnet     : 255.255.255.0
+Fungsi     : Gateway LAN 1
+
+eth2:
+IP Address : 192.222.2.1
+Subnet     : 255.255.255.0
+Fungsi     : Gateway LAN 2
+
+eth3:
+IP Address : 192.222.3.1
+Subnet     : 255.255.255.0
+Fungsi     : Gateway LAN 3
+
+
+Langkah Pengujian:
+
+1. Masuk ke console setiap client.
+
+2. Melakukan pengujian koneksi menggunakan perintah ping.
+
+
+Pengujian:
+
+Dari Alice:
+
+ping 192.222.1.3
+(ping ke Mika)
+
+ping 192.222.2.2
+(ping ke Chisa)
+
+ping 192.222.3.2
+(ping ke Knights)
+
+ping 192.222.3.3
+(ping ke Eiri)
+
+
+Dari client lain dilakukan pengujian antar subnet.
+
+
+Hasil:
+Seluruh client berhasil melakukan komunikasi antar jaringan
+melalui Router Lain.
+
+
+Kesimpulan:
+Konfigurasi routing pada Router Lain berhasil dilakukan.
+Seluruh Entitas yang berada pada Switch 1, Switch 2, dan Switch 3
+dapat saling terhubung.

@@ -1,0 +1,124 @@
+SOAL 1 - KONFIGURASI TOPOLOGI THE WIRED GNS3
+
+Tujuan:
+Membangun topologi The Wired menggunakan GNS3 dengan Lain sebagai
+Router yang menghubungkan beberapa subnet melalui Switch/Gateway.
+Kelima entitas yaitu Alice, Mika, Chisa, Knights, dan Eiri dikonfigurasi
+sebagai client.
+
+
+Topologi:
+- Lain berperan sebagai Router.
+- Switch 1 terhubung dengan Alice dan Mika.
+- Switch 2 terhubung dengan Chisa.
+- Switch 3 terhubung dengan Knights dan Eiri.
+
+
+Konfigurasi IP Address:
+
+==================================================
+
+Router1 (Lain)
+
+Interface : eth0
+Mode      : DHCP
+IP Address: Otomatis dari NAT
+Netmask   : Sesuai NAT
+Gateway   : Otomatis
+Fungsi    : WAN (Internet)
+
+Interface : eth1
+Mode      : Static
+IP Address: 192.222.1.1
+Netmask   : 255.255.255.0
+Gateway   : -
+Fungsi    : Gateway LAN 1
+
+Interface : eth2
+Mode      : Static
+IP Address: 192.222.2.1
+Netmask   : 255.255.255.0
+Gateway   : -
+Fungsi    : Gateway LAN 2
+
+Interface : eth3
+Mode      : Static
+IP Address: 192.222.3.1
+Netmask   : 255.255.255.0
+Gateway   : -
+Fungsi    : Gateway LAN 3
+
+
+==================================================
+
+Client Alice
+
+Interface : eth0
+Mode      : Static
+IP Address: 192.222.1.2
+Netmask   : 255.255.255.0
+Gateway   : 192.222.1.1
+Fungsi    : Host di Subnet 1
+
+
+==================================================
+
+Client Mika
+
+Interface : eth0
+Mode      : Static
+IP Address: 192.222.1.3
+Netmask   : 255.255.255.0
+Gateway   : 192.222.1.1
+Fungsi    : Host di Subnet 1
+
+
+==================================================
+
+Client Chisa
+
+Interface : eth0
+Mode      : Static
+IP Address: 192.222.2.2
+Netmask   : 255.255.255.0
+Gateway   : 192.222.2.1
+Fungsi    : Host di Subnet 2
+
+
+==================================================
+
+Client Knights
+
+Interface : eth0
+Mode      : Static
+IP Address: 192.222.3.2
+Netmask   : 255.255.255.0
+Gateway   : 192.222.3.1
+Fungsi    : Host di Subnet 3
+
+
+==================================================
+
+Client Eiri
+
+Interface : eth0
+Mode      : Static
+IP Address: 192.222.3.3
+Netmask   : 255.255.255.0
+Gateway   : 192.222.3.1
+Fungsi    : Host di Subnet 3
+
+
+==================================================
+
+Pengujian:
+
+Dilakukan pengujian koneksi antar perangkat menggunakan perintah:
+
+ping <IP tujuan>
+
+
+Hasil dan kesimpulan 
+Semua client dapat terhubung melalui Router Lain sesuai dengankonfigurasi subnet masing-masing.
+Pada percobaan ini berhasil dibuat topologi The Wired menggunakan GNS3.
+Router Lain berhasil menghubungkan tiga subnet berbeda dan seluruh client berhasil dikonfigurasi menggunakan IP sesuai prefix kelompok.

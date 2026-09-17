@@ -1,0 +1,9 @@
+Payload/Filter:
+`http`
+cari paket GET yang mencurigakan, kemudian follow tcp stream dan catat informasi yang didapatkan 
+
+Informasi yang didapatkan:
+HOST        : wired-update.net
+IP address  : 203.0.113.42
+nama file   : navi_agent.exe
+http status response: 200

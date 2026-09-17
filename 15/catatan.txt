@@ -1,0 +1,52 @@
+mendownload file yang disediakan di nomor 15 lalu dibuka di wireshark selanjutnya mem filter USB dan emncari usb descriptor selanjutnya mendpaatkan 
+Parameter	Nilai
+Vendor ID (VID)	0x046d
+Product ID (PID)	0xc31c
+Vendor	Logitech, Inc.
+Product	Keyboard K120
+
+USB URB
+    URB bus id: 1794
+    Device address: 0
+
+Yang dicari	Hasil
+Vendor ID	0x046d
+Product ID	0xc31c
+Device Address	7 (dari USB HID report)
+
+1. Masuk ke folder file pcap
+cd ~/Downloads
+2. Cek file pcap
+ls
+Pastikan ada:
+soal15_wired_usb_hid.pcap
+3. Cek tshark dari Wireshark
+/Applications/Wireshark.app/Contents/MacOS/tshark --version
+4. Ambil data USB HID keyboard
+/Applications/Wireshark.app/Contents/MacOS/tshark -r soal15_wired_usb_hid.pcap -Y "usb.capdata && usb.device_address==7" -T fields -e frame.number -e usb.capdata
+5. Simpan hasil capture HID
+/Applications/Wireshark.app/Contents/MacOS/tshark -r soal15_wired_usb_hid.pcap -Y "usb.capdata && usb.device_address==7" -T fields -e usb.capdata > hid.txt
+6. Melihat data HID
+cat hid.txt
+7. Decode USB HID Keyboard
+Byte pertama = modifier (Shift/Ctrl)
+Byte ketiga = keycode karakter
+Data 0000000000000000 diabaikan karena tidak ada input
+Contoh:
+02001a0000000000
+dibaca:
+02 = Shift
+1a = W
+8. Jalankan script usb_hid_decoder.py:
+`python3 usb_hid_decoder.py`
+Hasil seluruh keycode:
+Wired_Protocol_7_is_alive_2026
+Data yang dicatat:
+Vendor ID
+0x046d
+Product ID
+0xc31c
+USB Device Address
+7
+Secret Message
+Wired_Protocol_7_is_alive_2026

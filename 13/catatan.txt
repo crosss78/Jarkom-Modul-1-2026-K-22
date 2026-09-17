@@ -1,0 +1,85 @@
+Setup SSH Client (mika) menggunakan script setup_ssh_client.sh, nanti di dapatkan key nya.
+Setup SSH Server (knights) menggunakan script setup_ssh_server.sh, disana nanti diminta memasukan key, masukan saja key yg dari client mika tadi
+
+Test di client mika
+su - mika_admin
+ls .ssh
+ssh mika_admin@192.222.3.2
+
+
+Cek hasilnya
+* Client: **Mika** `192.222.1.3`
+* Server: **Knights** `192.222.3.2`
+* Server port: **22**
+* Authentication: `publickey`
+* `PasswordAuthentication no` sudah aktif
+* Koneksi berhasil:
+
+  ```text
+  Authenticated to 192.222.3.2 ([192.222.3.2]:22) using "publickey".
+  ```
+* SSH session berhasil menjalankan command dan keluar dengan `Exit status 0`.
+
+### Di Wireshark Mika
+
+Pakai display filter:
+
+```wireshark
+ip.addr == 192.222.1.3 && ip.addr == 192.222.3.2 && tcp.port == 22
+```
+
+Kemudian cari paket-paket awal koneksi SSH. Yang perlu kamu dokumentasikan:
+
+**1. Protocol Version Exchange**
+
+Biasanya terlihat sebagai paket TCP yang membawa string:
+
+```text
+SSH-2.0-OpenSSH_10.0p2
+```
+
+Kamu bisa klik paket → **Packet Details** → lihat bagian TCP/SSH atau gunakan:
+
+```wireshark
+tcp.port == 22 && tcp contains "SSH-2.0"
+```
+
+**2. Key Exchange**
+
+Cari paket SSH setelah version exchange, terutama yang berkaitan dengan:
+
+```text
+SSH2_MSG_KEXINIT
+SSH2_MSG_KEX_ECDH_REPLY
+SSH2_MSG_NEWKEYS
+```
+
+Filter:
+
+```wireshark
+ip.addr == 192.222.1.3 && ip.addr == 192.222.3.2 && tcp.port == 22
+```
+
+Lalu lihat urutan paketnya.
+
+**3. Bukti kredensial tidak plaintext**
+
+Ini bagian penting untuk screenshot. Setelah `NEWKEYS`, payload SSH akan terenkripsi. Jadi kamu **tidak akan melihat password atau isi session seperti command `whoami`, `hostname`, dll. sebagai plaintext** di packet payload.
+
+Kamu bisa pakai:
+
+```wireshark
+tcp.port == 22
+```
+
+kemudian pilih paket setelah proses `NEWKEYS` dan lihat bagian TCP payload. Isinya akan berupa data terenkripsi, bukan teks command yang kamu ketik.
+
+### Screenshot yang sebaiknya kamu ambil
+
+Minimal **2–3 screenshot**:
+
+1. **SSH Version Exchange** → terlihat `SSH-2.0-OpenSSH...`
+2. **Key Exchange** → terlihat paket `KEXINIT` / `KEX_ECDH_REPLY` / `NEWKEYS`
+3. **Encrypted session** → menunjukkan bahwa setelah key exchange, isi komunikasi tidak tampil sebagai plaintext.
+
+Dan **jangan khawatir kalau Wireshark tidak menampilkan label `Protocol Version Exchange` atau `Key Exchange` secara persis**. Yang penting kamu identifikasi berdasarkan paket dan urutannya.

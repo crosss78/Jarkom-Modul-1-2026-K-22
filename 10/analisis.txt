@@ -1,0 +1,114 @@
+Iya, dari hasil yang kamu kirim, **nomor 10 sudah punya semua data yang diperlukan**. Kita bisa analisis langsung dari hasil `ping` dan Wireshark.
+
+### 1. ICMP Type dan Code
+
+Dari Wireshark:
+
+| Paket        | ICMP Type |  Code | Keterangan                            |
+| ------------ | --------: | ----: | ------------------------------------- |
+| Echo Request |     **8** | **0** | Paket permintaan dari Knights → Chisa |
+| Echo Reply   |     **0** | **0** | Balasan dari Chisa → Knights          |
+
+Ini terlihat jelas pada detail Wireshark:
+
+* **Echo Request:** `Type: Echo (ping) request (8)`, `Code: 0`
+* **Echo Reply:** `Type: Echo (ping) reply (0)`, `Code: 0`
+
+
+
+> ICMP Echo Request memiliki **Type 8 dan Code 0**, sedangkan ICMP Echo Reply memiliki **Type 0 dan Code 0**. Echo Request dikirim oleh Knights menuju Chisa, kemudian Chisa merespons dengan Echo Reply.
+
+---
+
+### 2. Packet Loss
+
+Dari terminal Knights:
+
+```text
+77 packets transmitted, 77 received, 0% packet loss
+```
+
+Berarti:
+
+* Paket dikirim: **77**
+* Paket diterima kembali: **77**
+* Hilang: **0**
+* Packet loss: **0%**
+
+Jadi koneksinya **sangat baik dan tidak terjadi kehilangan paket** selama pengujian.
+
+---
+
+### 3. RTT
+
+Hasil akhirnya:
+
+```text
+rtt min/avg/max/mdev = 0.277/0.655/1.248/0.155 ms
+```
+
+Artinya:
+
+| Parameter   |        Nilai |
+| ----------- | -----------: |
+| Minimum RTT | **0.277 ms** |
+| Average RTT | **0.655 ms** |
+| Maximum RTT | **1.248 ms** |
+| Mdev        | **0.155 ms** |
+
+**Average RTT hanya 0.655 ms**, sehingga respons antara Knights dan Chisa sangat cepat.
+
+Nilai `mdev` **0.155 ms** juga relatif kecil, menunjukkan variasi delay/jitter selama pengujian tidak besar.
+
+---
+
+### 4. Payload 128 bytes
+
+Ini juga sebenarnya kelihatan dari capture kamu.
+
+Pada Wireshark, ukuran frame:
+
+```text
+170 bytes
+```
+
+Strukturnya:
+
+```text
+Ethernet header = 14 bytes
+IP header       = 20 bytes
+ICMP header     = 8 bytes
+ICMP data       = 128 bytes
+--------------------------------
+Total           = 170 bytes
+```
+
+Jadi memang sesuai dengan perintah:
+
+```bash
+ping -c 77 -s 128 -i 0.3 10.10.2.2
+```
+
+`-s 128` berarti **128 bytes ICMP payload/data**.
+
+Di terminal juga terlihat:
+
+```text
+136 bytes from 10.10.2.2
+```
+
+Karena:
+
+```text
+128 bytes payload + 8 bytes ICMP header = 136 bytes
+```
+
+---
+
+### 5. Analisis keseluruhan
+
+Kalau untuk **jawaban laporan nomor 10**, kamu bisa pakai versi ini:
+
+> Pengujian koneksi dilakukan dari node Knights menuju Chisa menggunakan ICMP Echo Request dengan payload 128 bytes sebanyak 77 paket dan interval 0,3 detik. Berdasarkan capture Wireshark, ICMP Echo Request memiliki **Type 8, Code 0**, sedangkan ICMP Echo Reply memiliki **Type 0, Code 0**. Seluruh 77 paket yang dikirim berhasil mendapatkan balasan, sehingga diperoleh **0% packet loss**. Hasil pengukuran RTT menunjukkan nilai minimum **0,277 ms**, rata-rata **0,655 ms**, dan maksimum **1,248 ms**, dengan mdev **0,155 ms**. Nilai RTT rata-rata yang rendah serta packet loss 0% menunjukkan koneksi antara Knights dan Chisa dalam kondisi stabil dengan latensi yang sangat rendah selama pengujian.
+
+**Jadi data nomor 10 kamu sudah lengkap:** Type/Code , packet loss , RTT min/avg/max ✅, dan payload 128 bytes juga terkonfirmasi dari capture.
