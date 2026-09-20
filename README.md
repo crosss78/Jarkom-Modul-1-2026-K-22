@@ -1,5 +1,11 @@
 # Jarkom-Modul-1-2026-K-22
 
+**Anggota Kelompok**
+| Nama                   | NRP        |
+| ---------------------- | ---------- |
+| Muhamad Sabilil Haq    | 5027251041 |
+| M. Faris Roisul Azhar    | 5027251048 |
+
 # Laporan Praktikum
 
 1. Menyiapkan router bernama `Lain` dan membuat 3 switch dari router tersebut. Switch pertama, terdapat dua entitas (client), yaitu `Alice` dan `Mika`. Switch kedua, membawahi satu entitas (server), yaitu `Chisa`. Terakhir, switch ketiga terdapat dua entitas (client), yaitu `Knights` dan `Eiri`.
@@ -104,7 +110,7 @@ test keterhubungan kelima entitas
 
 ---
 
-4. Agar kelima entitas dapat melakukan koneksi dengan internet. Ditambahkan lagi konfigurasi pada `Lain` berupa firewall/iptables (NAT Masquerade) dan juga kelima entitas tersebut diisi dengan DNS resolver (disini saya menjalankan script [fix_dns.sh](4/script%20yang%20ada%20di%20tiap%20entitas/fix_dns.sh) di kelima entitasnya).
+4. Agar kelima entitas dapat melakukan koneksi dengan internet. Ditambahkan lagi konfigurasi pada `Lain` berupa firewall/iptables (NAT Masquerade) dan juga kelima entitas tersebut diisi dengan DNS resolver (disini kami menjalankan script [fix_dns.sh](4/script%20yang%20ada%20di%20tiap%20entitas/fix_dns.sh) di kelima entitasnya).
   - Konfigurasi tambahan pada router `Lain`, sehingga konfigurasinya menjadi:
 ```
 auto eth0
@@ -294,7 +300,7 @@ Nilai RTT berada pada rentang **0.444 ms hingga 1.096 ms**, dengan rata-rata **0
 
 ---
 
-11. Buktikan kelemahan protokol Telnet dengan membuat akun `phantom_user` dan password `wired_ghost` pada layanan Telnet di node `Chisa`. Disini, saya menggunakan script [`setup_akun_telnet.sh`](11/setup_akun_telnet.sh) untuk pembuatan akunnya. Selanjutnya, lakukan login Telnet dari node `Eiri` ke node `Chisa` dan lakukan capture menggunakan Wireshark untuk mengamati komunikasi yang terjadi.
+11. Buktikan kelemahan protokol Telnet dengan membuat akun `phantom_user` dan password `wired_ghost` pada layanan Telnet di node `Chisa`. Disini, kami menggunakan script [`setup_akun_telnet.sh`](11/setup_akun_telnet.sh) untuk pembuatan akunnya. Selanjutnya, lakukan login Telnet dari node `Eiri` ke node `Chisa` dan lakukan capture menggunakan Wireshark untuk mengamati komunikasi yang terjadi.
 
 Capture lalu dianalisis menggunakan Wireshark dengan fitur **Follow TCP Stream** untuk melihat isi komunikasi antara client dan server.
 
@@ -323,7 +329,7 @@ Dari hasil pengujian dapat disimpulkan bahwa:
 
 ---
 
-12. Alice mencurigai `Knights` menjalankan beberapa layanan rahasia pada node-nya. Lakukan pemindaian port dari node `Alice` ke node `Knights` menggunakan Netcat (`nc`) untuk memeriksa port `22` (SSH) dan `80` (HTTP) dalam keadaan terbuka, serta port rahasia `7777` dalam keadaan tertutup. untuk menyiapkan port yang akan di test, saya menjalankan script [setup_portscan_target.sh](12/setup_portscan_target.sh) di node Knights. Selanjutnya, dari node `Alice`, dilakukan pengecekan terhadap masing-masing port menggunakan Netcat:
+12. Alice mencurigai `Knights` menjalankan beberapa layanan rahasia pada node-nya. Lakukan pemindaian port dari node `Alice` ke node `Knights` menggunakan Netcat (`nc`) untuk memeriksa port `22` (SSH) dan `80` (HTTP) dalam keadaan terbuka, serta port rahasia `7777` dalam keadaan tertutup. untuk menyiapkan port yang akan di test, kami menjalankan script [setup_portscan_target.sh](12/setup_portscan_target.sh) di node Knights. Selanjutnya, dari node `Alice`, dilakukan pengecekan terhadap masing-masing port menggunakan Netcat:
 
 ```bash
 nc -zv 192.222.3.2 22
