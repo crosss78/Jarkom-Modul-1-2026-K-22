@@ -386,6 +386,7 @@ Dengan demikian, hasil pengujian dapat dirangkum sebagai berikut:
 
 Berdasarkan hasil pengujian menggunakan Netcat dan analisis capture Wireshark, dapat diketahui bahwa **port terbuka merespons paket `SYN` dengan `SYN-ACK`**, sedangkan **port tertutup merespons dengan `RST-ACK`**. Perbedaan TCP Flag tersebut dapat digunakan untuk mengidentifikasi status port pada proses port scanning.
 
+13. Test bentar
 
 
 
